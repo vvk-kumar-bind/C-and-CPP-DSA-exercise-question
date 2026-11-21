@@ -158,7 +158,6 @@ int main()
 
   cout << searchIterative(first, 30) << endl
        << searchIterative(first, 20) << endl
-       << searchRecursive(first, 30) << endl
        << searchRecursive(first, 20) << endl;
 
   return 0;

@@ -2,20 +2,23 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct Element {
+struct Element
+{
     int i;
     int j;
     int x;
 };
 
-struct Sparse {
+struct Sparse
+{
     int m;
     int n;
     int num;
     struct Element *ele;
 };
 
-void create(struct Sparse *s) {
+void create(struct Sparse *s)
+{
     printf("Enter the dimensions: ");
     scanf("%d%d", &s->m, &s->n);
 
@@ -27,7 +30,8 @@ void create(struct Sparse *s) {
 
     printf("Enter row, column and value in sorted order:\n");
 
-    for (int i = 0; i < s->num; i++) {
+    for (int i = 0; i < s->num; i++)
+    {
         scanf("%d%d%d",
               &s->ele[i].i,
               &s->ele[i].j,
@@ -35,17 +39,23 @@ void create(struct Sparse *s) {
     }
 }
 
-void display(struct Sparse s) {
+void display(struct Sparse s)
+{
     int k = 0;
 
-    for (int i = 0; i < s.m; i++) {
-        for (int j = 0; j < s.n; j++) {
+    for (int i = 0; i < s.m; i++)
+    {
+        for (int j = 0; j < s.n; j++)
+        {
             if (k < s.num &&
                 i == s.ele[k].i &&
-                j == s.ele[k].j) {
+                j == s.ele[k].j)
+            {
                 printf("%d ", s.ele[k].x);
                 k++;
-            } else {
+            }
+            else
+            {
                 printf("0 ");
             }
         }
@@ -53,8 +63,10 @@ void display(struct Sparse s) {
     }
 }
 
-struct Sparse *add(struct Sparse *s1, struct Sparse *s2) {
-    if (s1->m != s2->m || s1->n != s2->n) {
+struct Sparse *add(struct Sparse *s1, struct Sparse *s2)
+{
+    if (s1->m != s2->m || s1->n != s2->n)
+    {
         printf("Matrix dimensions do not match!\n");
         return NULL;
     }
@@ -67,24 +79,32 @@ struct Sparse *add(struct Sparse *s1, struct Sparse *s2) {
     sum->ele = (struct Element *)
         malloc((s1->num + s2->num) * sizeof(struct Element));
 
-    while (i < s1->num && j < s2->num) {
-        if (s1->ele[i].i < s2->ele[j].i) {
+    while (i < s1->num && j < s2->num)
+    {
+        if (s1->ele[i].i < s2->ele[j].i)
+        {
             sum->ele[k++] = s1->ele[i++];
         }
-        else if (s1->ele[i].i > s2->ele[j].i) {
+        else if (s1->ele[i].i > s2->ele[j].i)
+        {
             sum->ele[k++] = s2->ele[j++];
         }
-        else {
-            if (s1->ele[i].j < s2->ele[j].j) {
+        else
+        {
+            if (s1->ele[i].j < s2->ele[j].j)
+            {
                 sum->ele[k++] = s1->ele[i++];
             }
-            else if (s1->ele[i].j > s2->ele[j].j) {
+            else if (s1->ele[i].j > s2->ele[j].j)
+            {
                 sum->ele[k++] = s2->ele[j++];
             }
-            else {
+            else
+            {
                 int value = s1->ele[i].x + s2->ele[j].x;
 
-                if (value != 0) {
+                if (value != 0)
+                {
                     sum->ele[k] = s1->ele[i];
                     sum->ele[k].x = value;
                     k++;
@@ -96,11 +116,13 @@ struct Sparse *add(struct Sparse *s1, struct Sparse *s2) {
         }
     }
 
-    while (i < s1->num) {
+    while (i < s1->num)
+    {
         sum->ele[k++] = s1->ele[i++];
     }
 
-    while (j < s2->num) {
+    while (j < s2->num)
+    {
         sum->ele[k++] = s2->ele[j++];
     }
 
@@ -111,7 +133,8 @@ struct Sparse *add(struct Sparse *s1, struct Sparse *s2) {
     return sum;
 }
 
-int main() {
+int main()
+{
     struct Sparse s1, s2;
     struct Sparse *s3;
 
@@ -129,7 +152,8 @@ int main() {
 
     s3 = add(&s1, &s2);
 
-    if (s3 != NULL) {
+    if (s3 != NULL)
+    {
         printf("\nSum Matrix:\n");
         display(*s3);
 

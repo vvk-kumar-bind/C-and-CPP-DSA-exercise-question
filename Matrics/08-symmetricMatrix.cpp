@@ -56,7 +56,7 @@ int SymmetricMatrix::getRow(int i, int j)
     if (i <= j)
         return rowA[(i - 1) * n - ((i - 2) * (i - 1)) / 2 + j - i];
     else
-        return 0;
+        return getRow(j, i);
 }
 
 void SymmetricMatrix::setCol(int i, int j, int x)
@@ -69,7 +69,8 @@ int SymmetricMatrix::getCol(int i, int j)
 {
     if (i <= j)
         return colA[j * (j - 1) / 2 + i - 1];
-    return 0;
+    return getCol(j, i);
+    ;
 }
 
 void SymmetricMatrix::display(bool row)
@@ -78,10 +79,12 @@ void SymmetricMatrix::display(bool row)
     {
         for (int j = 1; j <= n; j++)
         {
+
             if (i <= j)
                 //     cout << 0 << " ";
                 // else if (row)
-                cout << getRow(i, j) << " ";
+                cout
+                    << getRow(i, j) << " ";
             else
                 cout << getCol(i, j) << " ";
         }
